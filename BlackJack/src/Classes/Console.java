@@ -40,7 +40,7 @@ public class Console implements JogadorListener{
 		
 	}
 	
-	public void jogadorFicou(Jogador jogador) {
+	public void jogadorPassou(Jogador jogador) {
 		print(jogador.toString() + "FICOU");
 		
 	}
@@ -58,4 +58,5 @@ public class Console implements JogadorListener{
 		print(jogador.toString() + "SAIU");
 		
 	}
+
 }

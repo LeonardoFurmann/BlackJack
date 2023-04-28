@@ -2,6 +2,7 @@ package Classes;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import Classes.Jogador.NotifyChanged;
 import Estados.JogadorState;
 
 public class BlackJackDealer extends Jogador implements Dealer{
@@ -117,7 +118,7 @@ public class BlackJackDealer extends Jogador implements Dealer{
 	
 	private void mostrarCartas() {
 		getMao().virarTodas();
-		notifyChanged();
+		notifyListeners(new NotifyChanged());
 	}	
 	
 	
@@ -182,7 +183,7 @@ public class BlackJackDealer extends Jogador implements Dealer{
 		
 			@Override
 			public void maoMudou() {
-				notifyChanged();
+				notifyListeners(new NotifyChanged());
 			}
 		
 			@Override
@@ -295,7 +296,7 @@ public class BlackJackDealer extends Jogador implements Dealer{
 			@Override
 			public void maoBlackJack() {
 				setCurrentState(getBlackJackState());
-				notifyBlackjack();
+				notifyListeners(new NotifyBlackjack());
 			}
 		
 			@Override
@@ -304,7 +305,7 @@ public class BlackJackDealer extends Jogador implements Dealer{
 		
 			@Override
 			public void maoMudou() {
-				notifyChanged();
+				notifyListeners(new NotifyChanged());
 			}
 			
 			@Override

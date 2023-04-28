@@ -2,6 +2,7 @@ package Classes;
 import java.util.ArrayList;
 import java.util.Iterator;
 import Estados.JogadorState;
+import Helpers.NotifyHelper;
 import Listeners.JogadorListener;
 
 public abstract class Jogador {
@@ -19,7 +20,7 @@ public abstract class Jogador {
 	
 	public void addCarta(Carta carta) {
 		mao.addCarta(carta);
-		notifyChanged();
+		notifyListeners(new NotifyChanged());
 	}
 	
 	public void jogar(Dealer dealer) {
@@ -67,86 +68,29 @@ public abstract class Jogador {
 		listeners.add(l);
 	}
 	
-	protected void notifyChanged() {
+
+	protected void notifyListeners(NotifyHelper helper) {
 		Iterator i = listeners.iterator();
 		while(i.hasNext()) {
 			JogadorListener  pl = (JogadorListener )i.next();
-			pl.jogadorMudou(this);
-		}
-	}
-	
-	protected void notifyBusted() {
-		Iterator i = listeners.iterator();
-		while(i.hasNext()) {
-			JogadorListener  pl = (JogadorListener )i.next();
-			pl.jogadorEstourou(this);
-		}
-	}
-	
-	protected void notifyBlackjack() {
-		Iterator i = listeners.iterator();
-		while(i.hasNext()) {
-			JogadorListener  pl = (JogadorListener )i.next();
-			pl.jogadorBlackjack(this);
-		}
-	}
-	
-	protected void notifyWin() {
-		Iterator i = listeners.iterator();
-		while(i.hasNext()) {
-			JogadorListener  pl = (JogadorListener )i.next();
-			pl.jogadorGanhou(this);
-		}
-	}
-	
-	protected void notifyLose() {
-		Iterator i = listeners.iterator();
-		while(i.hasNext()) {
-			JogadorListener  pl = (JogadorListener )i.next();
-			pl.jogadorPerdeu(this);
-		}
-	}
-	
-	protected void notifyStandoff() {
-		Iterator i = listeners.iterator();
-		while(i.hasNext()) {
-			JogadorListener  pl = (JogadorListener )i.next();
-			pl.jogadorSaiu(this);
-		}
-	}
-	
-	protected void notifyStanding() {
-		Iterator i = listeners.iterator();
-		while(i.hasNext()) {
-			JogadorListener  pl = (JogadorListener )i.next();
-			pl.jogadorFicou(this);
-		}
-	}
-	
-	protected void notifyListeners() {
-		Iterator i = listeners.iterator();
-		while(i.hasNext()) {
-			JogadorListener  pl = (JogadorListener )i.next();
-			
-			
-			pl.jogadorFicou(this);
+			helper.notifyListener(pl);
 		}
 	}
 	
 	public void win() {
-		notifyWin();
+		notifyListeners(new NotifyWon());
 	}
 	
 	public void lose() {
-		notifyLose();
+		notifyListeners(new NotifyLost());
 	}
 	
 	public void standoff() {
-		notifyStandoff();
+		notifyListeners(new NotifyStandoff());
 	}
 	
 	public void blackjack() {
-		notifyBlackjack();
+		notifyListeners(new NotifyBlackjack());
 	}
 	
 	protected JogadorState getBustedState() {
@@ -173,12 +117,64 @@ public abstract class Jogador {
 		return new Waiting();
 	}
 	
+	
+public class NotifyBusted implements NotifyHelper{
+	public void notifyListener(JogadorListener pl) {
+		pl.jogadorEstourou(Jogador.this);
+			
+	}
+}
+
+
+public class NotifyBlackjack implements NotifyHelper{
+	public void notifyListener(JogadorListener pl) {
+		pl.jogadorBlackjack(Jogador.this);
+			
+	}
+}
+
+public class NotifyWon implements NotifyHelper{
+	public void notifyListener(JogadorListener pl) {
+		pl.jogadorGanhou(Jogador.this);
+			
+	}
+}
+
+public class NotifyLost implements NotifyHelper{
+	public void notifyListener(JogadorListener pl) {
+		pl.jogadorPerdeu(Jogador.this);
+			
+	}
+}
+
+public class NotifyChanged implements NotifyHelper{
+	public void notifyListener(JogadorListener pl) {
+		pl.jogadorMudou(Jogador.this);
+			
+	}
+}
+
+public class NotifyStanding implements NotifyHelper{
+	public void notifyListener(JogadorListener pl) {
+		pl.jogadorPassou(Jogador.this);
+			
+	}
+}
+
+public class NotifyStandoff implements NotifyHelper{
+	public void notifyListener(JogadorListener pl) {
+		pl.jogadorSaiu(Jogador.this);
+			
+	}
+}
+		
+		
 
 private class Waiting implements JogadorState{
 	
 	
 	public void maoMudou() {
-		notifyChanged();
+		notifyListeners(new NotifyChanged());
 		
 	}
 
@@ -191,7 +187,7 @@ private class Waiting implements JogadorState{
 	@Override
 	public void maoBlackJack() {
 		setCurrentState(getBlackJackState());
-		notifyBlackjack();
+		notifyListeners(new NotifyBlackjack());
 	}
 
 	@Override
@@ -296,12 +292,12 @@ private class Playing implements JogadorState{
 	@Override
 	public void maoEstourou() {
 		setCurrentState(getBustedState());
-		notifyBusted();	
+		notifyListeners(new NotifyBusted());	
 	}
 
 	@Override
 	public void maoMudou() {
-		notifyChanged();
+		notifyListeners(new NotifyChanged());
 	}
 
 	@Override
@@ -310,7 +306,7 @@ private class Playing implements JogadorState{
 			dealer.hit(Jogador.this);
 		} else {
 			setCurrentState(getStandingState());
-			notifyStanding();
+			notifyListeners(new NotifyStanding());
 		}
 		
 	}

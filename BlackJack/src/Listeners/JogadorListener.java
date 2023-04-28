@@ -11,7 +11,7 @@ public interface JogadorListener {
 	
 	public void jogadorBlackjack(Jogador jogador);
 	
-	public void jogadorFicou(Jogador jogador);
+	public void jogadorPassou(Jogador jogador);
 	
 	public void jogadorGanhou(Jogador jogador);
 	
