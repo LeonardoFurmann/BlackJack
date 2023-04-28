@@ -1,6 +1,8 @@
+package Classes;
 import java.awt.List;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Iterator;
 
 public class Naipe {
 	
@@ -22,5 +24,10 @@ public class Naipe {
 	public String toString() {
 		return String.valueOf(display);
 	}
+
+//	public Iterator<Naipe> iterator() {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
 }

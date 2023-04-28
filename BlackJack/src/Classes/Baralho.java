@@ -1,3 +1,4 @@
+package Classes;
 import java.util.Iterator;
 
 public class Baralho {
@@ -17,7 +18,7 @@ public class Baralho {
 		
 		baralho = new Carta[52];
 		
-		Iterator naipes = (Iterator) Naipe.NAIPES;
+		Iterator<Naipe> naipes = (Iterator) Naipe.NAIPES;
 		
 		int contador  = 0;
 		
