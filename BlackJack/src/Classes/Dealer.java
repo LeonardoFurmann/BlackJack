@@ -6,4 +6,5 @@ public interface Dealer {
 	public void blackjack(Jogador jogador);
 	public void estourou(Jogador jogador);
 	public void passou(Jogador jogador);
+	public void terminarAposta(Jogador jogador);
 }

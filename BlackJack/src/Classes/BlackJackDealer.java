@@ -13,13 +13,17 @@ public class BlackJackDealer extends Jogador implements Dealer{
 	private ArrayList blackjack_jogadores = new ArrayList();
 	private ArrayList passou_jogadores = new ArrayList();
 	private ArrayList jogadores_esperando = new ArrayList();
-	
-	private int jogador_index;
+	private ArrayList aposta_jogadores = new ArrayList();
 	
 	public BlackJackDealer(Mao mao, String nome,Maco maco) {
 		super(mao, nome);
 		this.maco = maco;
 	}
+	
+	@Override
+	public JogadorState getCurrentState() {
+		return estado_atual;
+	}	
 	
 	@Override
 	protected boolean hit() {
@@ -47,38 +51,16 @@ public class BlackJackDealer extends Jogador implements Dealer{
 		jogar(this);
 	}
 	
-	protected JogadorState getBlackjackState() {
-		return new DealerBlackjack();
+	@Override
+	public void terminarAposta(Jogador jogador) {
+		jogadores_esperando.add(jogador);
+		jogar(this);
+		
 	}
-	
-	protected JogadorState getBustedState() {
-		return new DealerBusted();
-	}
-	
-	protected JogadorState getStandingState() {
-		return new DealerStanding();
-	}
-	
-	protected JogadorState getWaitingState() {
-		return new DealerWaiting();
-	}
-	
 	
 	public void hit(Jogador jogador) {
 		jogador.addCarta(maco.viraCima());
 	}
-	
-
-//	public void passaTurno() {
-//		if(jogador_index != jogadores.size()) {
-//			Jogador jogador = (Jogador) jogadores.get(jogador_index);
-//			jogador_index++;
-//			jogador.jogar(this);
-//		} else {
-//			this.jogar(this);
-//		}
-//	}
-	
 	
 	public void addJogador(Jogador jogador) {
 		jogadores.add(jogador);
@@ -122,7 +104,58 @@ public class BlackJackDealer extends Jogador implements Dealer{
 	}	
 	
 	
+	protected JogadorState getBlackjackState() {
+		return new DealerBlackjack();
+	}
 	
+	protected JogadorState getBustedState() {
+		return new DealerBusted();
+	}
+	
+	protected JogadorState getStandingState() {
+		return new DealerStanding();
+	}
+	
+	protected JogadorState getWaitingState() {
+		return new DealerWaiting();
+	}
+	
+	protected JogadorState getDealingState() {
+		return new DealerCollectingBets();
+	}
+	
+	
+	private class DealerCollectingBets implements JogadorState {
+
+		@Override
+		public void maoJogavel() {}
+
+		@Override
+		public void maoBlackJack() {}
+
+		@Override
+		public void maoEstourou() {}
+
+		@Override
+		public void maoMudou() {}
+
+		@Override
+		public void execute(Dealer dealer) {
+			if (!aposta_jogadores.isEmpty()) {
+				Jogador jogador = (Jogador) aposta_jogadores.get(0);
+				aposta_jogadores.remove(jogador);
+				jogador.jogar(dealer);
+			} else {
+				setCurrentState(getDealingState());
+				getCurrentState().execute(dealer);
+			}
+			
+			
+		}
+		
+	}
+	
+		
 	private class DealerBusted implements JogadorState {
 		
 		@Override
@@ -169,39 +202,39 @@ public class BlackJackDealer extends Jogador implements Dealer{
 	
 	private class DealerBlackjack implements JogadorState {
 		
-			@Override
-			public void maoJogavel() {
-			}
-		
-			@Override
-			public void maoBlackJack() {		
-			}
-		
-			@Override
-			public void maoEstourou() {		
-			}
-		
-			@Override
-			public void maoMudou() {
-				notifyListeners(new NotifyChanged());
-			}
-		
-			@Override
-			public void execute(Dealer dealer) {
+		@Override
+		public void maoJogavel() {
+		}
+	
+		@Override
+		public void maoBlackJack() {		
+		}
+	
+		@Override
+		public void maoEstourou() {		
+		}
+	
+		@Override
+		public void maoMudou() {
+			notifyListeners(new NotifyChanged());
+		}
+	
+		@Override
+		public void execute(Dealer dealer) {
+			
+			mostrarCartas();
+			Iterator i = jogadores.iterator();
+			
+			while(i.hasNext()) {
+				Jogador jogador = (Jogador) i.next();
 				
-				mostrarCartas();
-				Iterator i = jogadores.iterator();
-				
-				while(i.hasNext()) {
-					Jogador jogador = (Jogador) i.next();
-					
-					if (jogador.getMao().blackjack()) {
-						jogador.standoff();
-					} else {
-						jogador.lose();
-					}
+				if (jogador.getMao().blackjack()) {
+					jogador.standoff();
+				} else {
+					jogador.lose();
 				}
 			}
+		}
 		}
 	
 	private class DealerStanding implements JogadorState {
@@ -316,6 +349,7 @@ public class BlackJackDealer extends Jogador implements Dealer{
 			}
 		}	
 	}
-	
+
+
 }
 

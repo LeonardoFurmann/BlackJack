@@ -10,12 +10,16 @@ public abstract class Jogador {
 	private Mao mao;
 	private String nome;
 	private ArrayList listeners = new ArrayList();
-	private JogadorState estado_atual; 
+	protected JogadorState estado_atual; 
 	
 	public Jogador(Mao mao, String nome) {
 		super();
 		this.mao = mao;
 		this.nome = nome;
+	}
+	
+	public String getNome() {
+		return nome;
 	}
 	
 	public void addCarta(Carta carta) {
@@ -26,11 +30,7 @@ public abstract class Jogador {
 	public void jogar(Dealer dealer) {
 		
 		estado_atual.execute(dealer);
-		
-//		while( !(estourou() &&hit())) {
-//			dealer.hit(this);
-//		}
-//		paraJogar(dealer);
+
 	}
 	
 	protected abstract boolean hit();
@@ -56,10 +56,8 @@ public abstract class Jogador {
 //		dealer.passaTurno();
 //	}
 	
-	public JogadorState getCurrentState(){
-		return estado_atual;
-	}
-	
+	public abstract JogadorState getCurrentState();
+
 	public void setCurrentState(JogadorState jogadorState) {
 		estado_atual = jogadorState;
 	}
