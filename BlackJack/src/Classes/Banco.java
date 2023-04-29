@@ -45,6 +45,10 @@ public class Banco {
 		total -=aposta;
 	}
 	
+	public void dobrarAposta() {
+		aposta = aposta  * 2 ;
+	}
+	
 	public String toString() {
 		return ("$" + total);
 	}

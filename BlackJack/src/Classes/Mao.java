@@ -128,4 +128,13 @@ public class Mao {
 		}
 		return total;
 	}
+
+
+	public boolean podeDobrar() {
+		if (total() + 1 >= BLACKJACK) {
+			return true;
+		} else {
+			return false;
+		}		
+	}
 }

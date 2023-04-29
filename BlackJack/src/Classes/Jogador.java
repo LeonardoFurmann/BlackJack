@@ -12,6 +12,10 @@ public abstract class Jogador {
 	private ArrayList listeners = new ArrayList();
 	protected JogadorState estado_atual; 
 	
+	protected abstract boolean hit();
+	
+	public abstract JogadorState getCurrentState();
+	
 	public Jogador(Mao mao, String nome) {
 		super();
 		this.mao = mao;
@@ -33,8 +37,6 @@ public abstract class Jogador {
 
 	}
 	
-	protected abstract boolean hit();
-	
 
 	public void reset() {
 		mao.reset();
@@ -52,11 +54,6 @@ public abstract class Jogador {
 		return mao;
 	}
 	
-//	protected void paraJogar(Dealer dealer) {
-//		dealer.passaTurno();
-//	}
-	
-	public abstract JogadorState getCurrentState();
 
 	public void setCurrentState(JogadorState jogadorState) {
 		estado_atual = jogadorState;
