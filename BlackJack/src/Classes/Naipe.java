@@ -1,8 +1,9 @@
 package Classes;
-import java.awt.List;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
+
 
 public class Naipe {
 	
@@ -13,7 +14,7 @@ public class Naipe {
 	
 	public static final Naipe[] VALORES= {OUROS,COPAS,ESPADAS,PAUS};
 	
-	public static final List NAIPES = (List) Collections.unmodifiableList(Arrays.asList(VALORES));
+	public static final ArrayList NAIPES = (ArrayList) Collections.unmodifiableList(Arrays.asList(VALORES));
 	
 	private final char display;
 	

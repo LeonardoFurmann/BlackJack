@@ -1,5 +1,5 @@
 package Classes;
-import java.awt.List;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
@@ -24,7 +24,7 @@ public class Numero {
 				NOVE,DEZ,VALETE,RAINHA,REI,AS};
 	
 	//lista não modificavel
-	public static final List NUMEROS = (List) Collections.unmodifiableList(Arrays.asList(VALORES));
+	public static final ArrayList NUMEROS = (ArrayList) Collections.unmodifiableList(Arrays.asList(VALORES));
 	
 	private final int rank;
 	private final String display;

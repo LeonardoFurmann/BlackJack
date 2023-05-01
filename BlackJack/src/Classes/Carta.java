@@ -28,6 +28,14 @@ public class Carta {
 		face_up = true;
 	}
 	
+	public boolean isFaceUp() {
+		if (face_up) {
+			return true;
+		}else {
+			return false;
+		}
+	}
+	
 	public String display() {
 		return numero.toString() + naipe.toString(); 
 	}

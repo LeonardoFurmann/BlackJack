@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 import Estados.JogadorState;
 
-public class JogadorHumano extends JogadorAposta {
+public class JogadorCommandLine extends JogadorAposta {
 	
 	private final static String HIT = "H";
 	private final static String STAND = "S";
@@ -17,7 +17,7 @@ public class JogadorHumano extends JogadorAposta {
 	private final static String DOUBLEBET_NO = "N";
 	private final static String DEFAULT = "invalido";
 
-	public JogadorHumano(Mao mao, String nome,Banco banco) {
+	public JogadorCommandLine(Mao mao, String nome,Banco banco) {
 		super(mao, nome, banco);
 	}
 

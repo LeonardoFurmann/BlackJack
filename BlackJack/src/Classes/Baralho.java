@@ -14,11 +14,11 @@ public class Baralho {
 		stack.addCartas(baralho);
 	}
 	
-	private void buildCartas() {
+	protected void buildCartas() {
 		
 		baralho = new Carta[52];
 		
-		Iterator<Naipe> naipes = (Iterator) Naipe.NAIPES;
+		Iterator<Naipe> naipes = (Iterator<Naipe>) Naipe.NAIPES;
 		
 		int contador  = 0;
 		

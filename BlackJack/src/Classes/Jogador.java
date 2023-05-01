@@ -50,7 +50,7 @@ public abstract class Jogador {
 		return (nome + ":" + mao.toString());
 	}
 	
-	protected Mao getMao() {
+	public Mao getMao() {
 		return mao;
 	}
 	
