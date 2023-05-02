@@ -131,10 +131,15 @@ public class Mao {
 
 
 	public boolean podeDobrar() {
-		if (total() + 1 >= BLACKJACK) {
-			return true;
-		} else {
-			return false;
-		}		
+		
+		return (cartas.size() == 2);
+		
+//		if (total() + 1 >= BLACKJACK) {
+//			return true;
+//		} else {
+//			return false;
+//		}	
+		
+		
 	}
 }

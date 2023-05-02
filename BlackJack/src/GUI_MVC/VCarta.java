@@ -1,4 +1,4 @@
-package GUI;
+package GUI_MVC;
 
 import Classes.Carta;
 import Classes.Naipe;
@@ -17,7 +17,7 @@ public class VCarta extends Carta{
 		if (isFaceUp()) {
 			return imagem;
 		} else {
-			return "/empty_pile.xbm";
+			return "/empty_pile.png";
 		}
 	}
 

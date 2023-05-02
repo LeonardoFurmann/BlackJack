@@ -1,7 +1,8 @@
-package GUI;
+package GUI_PAC;
 
 import Classes.BlackJackDealer;
 import Classes.Dealer;
+import GUI_MVC.JogadorView;
 
 public class BlackjackDealerGUI {
 	

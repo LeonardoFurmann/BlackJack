@@ -1,4 +1,4 @@
-package GUI;
+package GUI_PAC;
 
 import Classes.Banco;
 import Classes.Dealer;
@@ -24,7 +24,8 @@ public class JogadorGUI extends JogadorAposta{
 
 	@Override
 	protected boolean dobrarAposta() {
-		// TODO Auto-generated method stub
+		setCurrentState(getDobrarApostaState());
+		getCurrentState().execute(dealer);
 		return false;
 	}
 

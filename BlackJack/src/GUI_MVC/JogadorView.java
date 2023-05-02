@@ -1,4 +1,4 @@
-package GUI;
+package GUI_MVC;
 
 import java.util.ArrayList;
 import java.util.Iterator;
