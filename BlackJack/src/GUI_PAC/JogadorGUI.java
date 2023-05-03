@@ -17,7 +17,7 @@ import Estados.JogadorState;
 import GUI_MVC.VCarta;
 import Listeners.JogadorListener;
 
-public abstract class JogadorGUI extends JogadorAposta implements Displayable{
+public  class JogadorGUI extends JogadorAposta implements Displayable{
 	
 	Dealer dealer;
 	JogadorView view;
@@ -213,6 +213,19 @@ public abstract class JogadorGUI extends JogadorAposta implements Displayable{
 		@Override
 		public void execute(Dealer dealer) {
 		}
+	}
+
+	@Override
+	protected boolean hit() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+	@Override
+	public JogadorState getCurrentState() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	
