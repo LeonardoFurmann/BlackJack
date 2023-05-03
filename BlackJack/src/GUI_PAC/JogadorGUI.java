@@ -1,27 +1,45 @@
 package GUI_PAC;
 
-import java.awt.Component;
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.util.ArrayList;
+
+import javax.swing.JComponent;
+import javax.swing.JPanel;
+import javax.swing.border.TitledBorder;
 
 import Classes.Banco;
 import Classes.Dealer;
+import Classes.Jogador;
 import Classes.JogadorAposta;
 import Classes.Mao;
 import Estados.JogadorState;
-import Helpers.NotifyHelper;
+import GUI_MVC.VCarta;
 import Listeners.JogadorListener;
 
-public class JogadorGUI extends JogadorAposta{
+public abstract class JogadorGUI extends JogadorAposta implements Displayable{
 	
 	Dealer dealer;
-
+	JogadorView view;
+	
 	public JogadorGUI(Mao mao, String nome, Banco banco, VBlackJackDealer vBlackJackDealer) {
 		super(mao, nome, banco);
 	}
 
+	
+	public JComponent view() {
+		if (view == null) {
+			view = new JogadorView((VMao)getMao());
+			addListener(view);
+		}
+			
+		return view;
+	}
+
+	
 	@Override
 	protected void apostar() {
-		// TODO Auto-generated method stub
-		
+	
 	}
 
 	@Override
@@ -31,17 +49,7 @@ public class JogadorGUI extends JogadorAposta{
 		return false;
 	}
 
-	@Override
-	protected boolean hit() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public JogadorState getCurrentState() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 	
 	public void apostar10() {
 		getBanco().apostar10();
@@ -78,6 +86,74 @@ public class JogadorGUI extends JogadorAposta{
 	
 	protected JogadorState getApostaState() {
 		return new Aposta();
+		
+	}
+	
+	private class JogadorView extends JPanel implements JogadorListener{
+		
+		private TitledBorder border;
+		
+		private ArrayList<VCarta> cartas = new ArrayList();
+
+		public JogadorView(VMao mao) {
+			super(new FlowLayout(FlowLayout.LEFT));
+			border = new TitledBorder(JogadorGUI.this.getNome());
+			setBorder(border);
+			setBackground(new Color(35,142,35));
+			border.setTitleColor(Color.black);
+			add(mao.view());
+			repaint();
+		}
+		
+		@Override
+		public void jogadorMudou(Jogador jogador) {
+			String nome = JogadorGUI.this.getNome();
+			border.setTitle(nome);
+			repaint();
+		}
+
+		@Override
+		public void jogadorEstourou(Jogador jogador) {
+			String nome = JogadorGUI.this.getNome();
+			border.setTitle(nome + "ESTOUROU");
+			repaint();
+		}
+
+		@Override
+		public void jogadorBlackjack(Jogador jogador) {
+			String nome = JogadorGUI.this.getNome();
+			border.setTitle(nome + "BLACKJACK");
+			repaint();
+		}
+
+		@Override
+		public void jogadorPassou(Jogador jogador) {
+			String nome = JogadorGUI.this.getNome();
+			border.setTitle(nome + "Passou...");
+			repaint();
+		}
+
+		@Override
+		public void jogadorGanhou(Jogador jogador) {
+			String nome = JogadorGUI.this.getNome();
+			border.setTitle(nome + "GANHOU");
+			repaint();
+		}
+
+		@Override
+		public void jogadorPerdeu(Jogador jogador) {
+			String nome = JogadorGUI.this.getNome();
+			border.setTitle(nome + "Perdeu...");
+			repaint();
+		}
+
+		@Override
+		public void jogadorSaiu(Jogador jogador) {
+			String nome = JogadorGUI.this.getNome();
+			border.setTitle(nome + "Saiu...");
+			repaint();
+		}
+		
 		
 	}
 	
@@ -139,8 +215,5 @@ public class JogadorGUI extends JogadorAposta{
 		}
 	}
 
-	public Component view() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 }
