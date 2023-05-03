@@ -1,5 +1,7 @@
 package GUI_PAC;
 
+import java.awt.Component;
+
 import Classes.Banco;
 import Classes.Dealer;
 import Classes.JogadorAposta;
@@ -12,7 +14,7 @@ public class JogadorGUI extends JogadorAposta{
 	
 	Dealer dealer;
 
-	public JogadorGUI(Mao mao, String nome, Banco banco) {
+	public JogadorGUI(Mao mao, String nome, Banco banco, VBlackJackDealer vBlackJackDealer) {
 		super(mao, nome, banco);
 	}
 
@@ -135,5 +137,10 @@ public class JogadorGUI extends JogadorAposta{
 		@Override
 		public void execute(Dealer dealer) {
 		}
+	}
+
+	public Component view() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

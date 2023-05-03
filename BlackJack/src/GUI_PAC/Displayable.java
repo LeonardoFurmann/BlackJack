@@ -1,5 +1,8 @@
 package GUI_PAC;
 
-public interface Displayable {
+import javax.swing.JComponent;
 
+public interface Displayable {
+	
+	public JComponent view();
 }

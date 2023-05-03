@@ -18,6 +18,9 @@ public class VCarta extends Carta implements Displayable{
 	String imagem;
 	private CartaView view;
 	
+	public JComponent view() {
+		return view;
+	}
 	
 	public VCarta(Numero numero, Naipe naipe,String imagem) {
 		super(numero, naipe);
@@ -36,12 +39,10 @@ public class VCarta extends Carta implements Displayable{
 
 	public void setFaceUp(boolean up) {
 		super.faceUp();
-		view.changed();
+		view.mudou();
 	}
 	
-	public JComponent view() {
-		return view;
-	}
+	
 	
 	private class CartaView extends JLabel {
 		
@@ -51,7 +52,7 @@ public class VCarta extends Carta implements Displayable{
 			setOpaque(true);
 		}
 		
-		public void changed() {
+		public void mudou() {
 			setImagem(getImagem());
 		}
 		
