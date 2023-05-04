@@ -6,6 +6,11 @@ import java.awt.GridLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import Classes.Banco;
+import Classes.Jogador;
+import Classes.JogadorSeguro;
+import Classes.Mao;
+
 public class BlackjackGUI extends JFrame{
 	
 	VJogadorFactory factory = new VJogadorFactory();
@@ -16,11 +21,15 @@ public class BlackjackGUI extends JFrame{
 		
 		VBlackJackDealer dealer = factory.getDealer();
 		JogadorGUI jogador = factory.getJogador();
+		JogadorGUI jogadorSeguro = (JogadorGUI) factory.getJogadorSeguro();
 		
 		dealer.addJogador(jogador);
+		dealer.addJogador(jogadorSeguro);
 		jogadores.add(dealer.view());
 		jogadores.add(jogador.view());
 		getContentPane().add(jogadores, BorderLayout.CENTER);
 	}
+	
+	
 
 }

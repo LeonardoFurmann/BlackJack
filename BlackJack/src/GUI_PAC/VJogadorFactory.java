@@ -2,7 +2,11 @@ package GUI_PAC;
 
 import Classes.Banco;
 import Classes.Baralho;
+import Classes.Jogador;
+import Classes.JogadorAposta;
+import Classes.JogadorSeguro;
 import Classes.Maco;
+import Classes.Mao;
 import GUI_PAC.VBaralho;
 
 public class VJogadorFactory {
@@ -41,6 +45,13 @@ public class VJogadorFactory {
 			jogador = new JogadorGUI(jogador_mao, "leo", banco ,getDealer());
 		}
 		return jogador;
+	}
+	
+	public Jogador getJogadorSeguro() {
+		Mao mao_segura = new Mao();
+		Banco banco_seguro = new Banco(1000);
+		return new JogadorSeguro(mao_segura, "Safe", banco_seguro);
+		
 	}
 
 	private VMao getMao() {
