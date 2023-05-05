@@ -7,4 +7,5 @@ public interface Dealer {
 	public void estourou(Jogador jogador);
 	public void passou(Jogador jogador);
 	public void terminarAposta(Jogador jogador);
+	public Carta cartaAberta();
 }

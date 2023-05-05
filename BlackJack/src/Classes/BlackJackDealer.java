@@ -14,10 +14,16 @@ public class BlackJackDealer extends Jogador implements Dealer{
 	private ArrayList passou_jogadores = new ArrayList();
 	private ArrayList jogadores_esperando = new ArrayList();
 	private ArrayList aposta_jogadores = new ArrayList();
+	public Carta cartaAberta;
 	
 	public BlackJackDealer(Mao mao, String nome,Maco maco) {
 		super(mao, nome);
 		this.maco = maco;
+	}
+	
+	@Override
+	public Carta cartaAberta() {
+		return cartaAberta;	
 	}
 	
 	@Override
@@ -87,6 +93,7 @@ public class BlackJackDealer extends Jogador implements Dealer{
 		}
 		
 		this.addCarta(maco.viraCima());
+		this.cartaAberta = maco.viraCima();
 		
 		for (int i = 0; i < jogador.length; i++) {
 			jogador[i].addCarta(maco.viraCima());
@@ -349,6 +356,8 @@ public class BlackJackDealer extends Jogador implements Dealer{
 			}
 		}	
 	}
+
+	
 
 
 }
