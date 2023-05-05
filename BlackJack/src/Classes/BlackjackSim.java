@@ -6,6 +6,7 @@ public class BlackjackSim {
 
 	public static void main(String[] args) {
 		
+		int contador = 0;
 		
 		Console.INSTANCE.print("Quer jogar quantas vezes");
 		String resposta = Console.INSTANCE.readInput("invalido");
@@ -21,7 +22,28 @@ public class BlackjackSim {
 		}
 		
 		Mao mao_dealer = new Mao();
-		BlackJackDealer delaer = new BlackJackDealer(mao_dealer, "Dealer", maco);
+		BlackJackDealer dealer = new BlackJackDealer(mao_dealer, "Dealer", maco);
+		
+		Jogador flip = new JogadorFlip(new Mao(), "Flip", new Banco(1000));
+		Jogador safe = new JogadorSeguro(new Mao(), "Safe", new Banco(1000));
+		Jogador smart = new JogadorEsperto(new Mao(), "Flip", new Banco(1000));
+		Jogador oneHit = new JogadorOneHit(new Mao(), "Flip", new Banco(1000));
+		
+		dealer.addListener(Console.INSTANCE);
+		flip.addListener(Console.INSTANCE);
+		smart.addListener(Console.INSTANCE);
+		oneHit.addListener(Console.INSTANCE);
+		safe.addListener(Console.INSTANCE);
+		
+		dealer.addJogador(flip);
+		dealer.addJogador(smart);
+		dealer.addJogador(oneHit);
+		dealer.addJogador(safe);
+
+		while(contador < jogos) {
+			dealer.novoJogo();
+			contador++;
+		}
 		
 	}
 
