@@ -1,5 +1,6 @@
 package GUI_PAC;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.util.ArrayList;
@@ -9,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 
 import Classes.Banco;
+import Classes.BlackJackDealer;
 import Classes.Dealer;
 import Classes.Jogador;
 import Classes.JogadorAposta;
@@ -17,10 +19,10 @@ import Estados.JogadorState;
 import GUI_MVC.VCarta;
 import Listeners.JogadorListener;
 
-public  class JogadorGUI extends JogadorAposta implements Displayable{
+public  class JogadorGUI extends VJogadorAposta implements Displayable{
 	
-	Dealer dealer;
-	JogadorView view;
+	public BlackJackDealer dealer;
+	public JPanel view;
 	
 	public JogadorGUI(Mao mao, String nome, Banco banco, VBlackJackDealer vBlackJackDealer) {
 		super(mao, nome, banco);
@@ -29,8 +31,13 @@ public  class JogadorGUI extends JogadorAposta implements Displayable{
 	
 	public JComponent view() {
 		if (view == null) {
-			view = new JogadorView((VMao)getMao());
-			addListener(view);
+			view = new JPanel( new BorderLayout());
+			JComponent pv = super.view();
+			JogadorView Jview = new JogadorView();
+			addListener(Jview);
+			view.add(pv, BorderLayout.CENTER);
+			view.add(Jview, BorderLayout.SOUTH);
+			
 		}
 			
 		return view;
@@ -95,15 +102,15 @@ public  class JogadorGUI extends JogadorAposta implements Displayable{
 		
 		private ArrayList<VCarta> cartas = new ArrayList();
 
-		public JogadorView(VMao mao) {
-			super(new FlowLayout(FlowLayout.LEFT));
-			border = new TitledBorder(JogadorGUI.this.getNome());
-			setBorder(border);
-			setBackground(new Color(35,142,35));
-			border.setTitleColor(Color.black);
-			add(mao.view());
-			repaint();
-		}
+//		public JogadorView(VMao mao) {
+//			super(new FlowLayout(FlowLayout.LEFT));
+//			border = new TitledBorder(JogadorGUI.this.getNome());
+//			setBorder(border);
+//			setBackground(new Color(35,142,35));
+//			border.setTitleColor(Color.black);
+//			add(mao.view());
+//			repaint();
+//		}
 		
 		@Override
 		public void jogadorMudou(Jogador jogador) {

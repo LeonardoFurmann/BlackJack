@@ -318,7 +318,18 @@ public class BlackJackDealer extends Jogador implements Dealer{
 				if (!jogadores_esperando.isEmpty()) {
 					Jogador jogador = (Jogador) jogadores_esperando.get(0);
 					jogadores_esperando.remove(jogador);
-					jogador.jogar(dealer);					
+					
+					Runnable runnable = new Runnable() {
+						
+						@Override
+						public void run() {
+							jogador.jogar(dealer);						
+						}
+					};
+					
+					Thread thread = new Thread(runnable);
+					thread.start();
+										
 				} else {
 					setCurrentState(getPlayingState());
 					mostrarCartas();
